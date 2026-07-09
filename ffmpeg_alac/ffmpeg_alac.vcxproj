@@ -1,0 +1,121 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup Label="ProjectConfigurations">
+    <ProjectConfiguration Include="Debug|Win32">
+      <Configuration>Debug</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|Win32">
+      <Configuration>Release</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+  </ItemGroup>
+  <PropertyGroup Label="Globals">
+    <VCProjectVersion>18.0</VCProjectVersion>
+    <Keyword>Win32Proj</Keyword>
+    <ProjectGuid>{382c9880-e584-48d3-8a16-6980743c7fe6}</ProjectGuid>
+    <RootNamespace>ffmpegalac</RootNamespace>
+    <WindowsTargetPlatformVersion>10.0</WindowsTargetPlatformVersion>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
+    <ConfigurationType>DynamicLibrary</ConfigurationType>
+    <UseDebugLibraries>true</UseDebugLibraries>
+    <PlatformToolset>v145</PlatformToolset>
+    <CharacterSet>Unicode</CharacterSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration">
+    <ConfigurationType>DynamicLibrary</ConfigurationType>
+    <UseDebugLibraries>false</UseDebugLibraries>
+    <PlatformToolset>v145</PlatformToolset>
+    <WholeProgramOptimization>false</WholeProgramOptimization>
+    <CharacterSet>Unicode</CharacterSet>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
+  <ImportGroup Label="ExtensionSettings">
+  </ImportGroup>
+  <ImportGroup Label="Shared">
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <PropertyGroup Label="UserMacros" />
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <ClCompile>
+      <WarningLevel>Level3</WarningLevel>
+      <SDLCheck>true</SDLCheck>
+      <PreprocessorDefinitions>WIN32;NOMINMAX;_DEBUG;FFMPEGALAC_EXPORTS;_WINDOWS;_USRDLL;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <ConformanceMode>true</ConformanceMode>
+      <LanguageStandard>stdcpp20</LanguageStandard>
+      <PrecompiledHeader>NotUsing</PrecompiledHeader>
+      <PrecompiledHeaderFile>
+      </PrecompiledHeaderFile>
+      <RuntimeLibrary>MultiThreadedDebug</RuntimeLibrary>
+      <AdditionalIncludeDirectories>$(SolutionDir);$(SolutionDir)ffmpeg;$(SolutionDir)ffmpeg\ffmpeg-8.1.2\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+    </ClCompile>
+    <Link>
+      <SubSystem>Windows</SubSystem>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <EnableUAC>false</EnableUAC>
+      <AdditionalDependencies>$(SolutionDir)ffmpeg\ffmpeg-8.1.2\lib\x86\avcodec.lib;$(SolutionDir)ffmpeg\ffmpeg-8.1.2\lib\x86\avdevice.lib;$(SolutionDir)ffmpeg\ffmpeg-8.1.2\lib\x86\avfilter.lib;$(SolutionDir)ffmpeg\ffmpeg-8.1.2\lib\x86\avformat.lib;$(SolutionDir)ffmpeg\ffmpeg-8.1.2\lib\x86\avutil.lib;$(SolutionDir)ffmpeg\ffmpeg-8.1.2\lib\x86\swresample.lib;$(SolutionDir)ffmpeg\ffmpeg-8.1.2\lib\x86\swscale.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <ModuleDefinitionFile>ffmpeg_alac.def</ModuleDefinitionFile>
+    </Link>
+    <Manifest>
+      <EnableSegmentHeap>true</EnableSegmentHeap>
+    </Manifest>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <ClCompile>
+      <WarningLevel>Level3</WarningLevel>
+      <FunctionLevelLinking>true</FunctionLevelLinking>
+      <IntrinsicFunctions>true</IntrinsicFunctions>
+      <SDLCheck>true</SDLCheck>
+      <PreprocessorDefinitions>WIN32;NOMINMAX;NDEBUG;FFMPEGALAC_EXPORTS;_WINDOWS;_USRDLL;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <ConformanceMode>true</ConformanceMode>
+      <LanguageStandard>stdcpp20</LanguageStandard>
+      <PrecompiledHeader>NotUsing</PrecompiledHeader>
+      <PrecompiledHeaderFile>
+      </PrecompiledHeaderFile>
+      <RuntimeLibrary>MultiThreaded</RuntimeLibrary>
+      <AdditionalIncludeDirectories>$(SolutionDir);$(SolutionDir)ffmpeg;$(SolutionDir)ffmpeg\ffmpeg-8.1.2\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+    </ClCompile>
+    <Link>
+      <SubSystem>Windows</SubSystem>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <EnableUAC>false</EnableUAC>
+      <AdditionalDependencies>$(SolutionDir)ffmpeg\ffmpeg-8.1.2\lib\x86\avcodec.lib;$(SolutionDir)ffmpeg\ffmpeg-8.1.2\lib\x86\avdevice.lib;$(SolutionDir)ffmpeg\ffmpeg-8.1.2\lib\x86\avfilter.lib;$(SolutionDir)ffmpeg\ffmpeg-8.1.2\lib\x86\avformat.lib;$(SolutionDir)ffmpeg\ffmpeg-8.1.2\lib\x86\avutil.lib;$(SolutionDir)ffmpeg\ffmpeg-8.1.2\lib\x86\swresample.lib;$(SolutionDir)ffmpeg\ffmpeg-8.1.2\lib\x86\swscale.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <ModuleDefinitionFile>ffmpeg_alac.def</ModuleDefinitionFile>
+    </Link>
+    <Manifest>
+      <EnableSegmentHeap>true</EnableSegmentHeap>
+    </Manifest>
+  </ItemDefinitionGroup>
+  <ItemGroup>
+    <ClInclude Include="..\ffmpeg\FFmpegDecoder.h" />
+    <ClInclude Include="..\ffmpeg\FFmpegEncoder.h" />
+    <ClInclude Include="..\ffmpeg\FFmpegEncoderALAC.h" />
+    <ClInclude Include="..\utils.h" />
+    <ClInclude Include="FFmpegAlacFileFilter.h" />
+    <ClInclude Include="resource.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="..\ffmpeg\FFmpegDecoder.cpp" />
+    <ClCompile Include="..\ffmpeg\FFmpegEncoder.cpp" />
+    <ClCompile Include="..\ffmpeg\FFmpegEncoderALAC.cpp" />
+    <ClCompile Include="..\utils.cpp" />
+    <ClCompile Include="dllmain.cpp" />
+    <ClCompile Include="FFmpegAlacFileFilter.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ResourceCompile Include="ffmpeg_alac.rc" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="ffmpeg_alac.def" />
+  </ItemGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
+  <ImportGroup Label="ExtensionTargets">
+  </ImportGroup>
+</Project>

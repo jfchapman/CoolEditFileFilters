@@ -2,10 +2,8 @@
 #include "opusenc.h"
 
 #include <memory>
-#include <optional>
 #include <map>
 #include <string>
-#include <vector>
 
 constexpr uint32_t kOpusMinimumBitrate = 8;
 constexpr uint32_t kOpusMaximumBitrate = 256;

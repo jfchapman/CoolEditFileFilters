@@ -3,8 +3,11 @@
 #include <fstream>
 #include <vector>
 #include <string>
-#include <optional>
-#include <map>
+
+extern "C"
+{
+#include <libavcodec/codec_id.h>
+}
 
 struct AVCodecContext;
 struct AVFormatContext;
@@ -16,7 +19,7 @@ class FFmpegDecoder
 {
 public:
 	// Throws std::runtime_error if the file could not be loaded.
-	FFmpegDecoder( const std::string& filename );
+	FFmpegDecoder( const std::string& filename, const AVCodecID codecRestriction = AV_CODEC_ID_NONE );
 
 	virtual ~FFmpegDecoder();
 
@@ -31,7 +34,7 @@ public:
 
 private:
 	bool Decode();
-	void ConvertSampleData( const AVFrame* frame ); 
+	void ConvertSampleData( const AVFrame* frame );
 
 	AVFormatContext* m_FormatContext = nullptr;
 	AVCodecContext* m_DecoderContext = nullptr;
@@ -49,4 +52,3 @@ private:
   uint64_t m_TotalSamples = 0;
   std::string m_Description;
 };
-

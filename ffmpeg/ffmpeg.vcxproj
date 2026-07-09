@@ -21,13 +21,13 @@
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
     <ConfigurationType>DynamicLibrary</ConfigurationType>
     <UseDebugLibraries>true</UseDebugLibraries>
-    <PlatformToolset>v143</PlatformToolset>
+    <PlatformToolset>v145</PlatformToolset>
     <CharacterSet>Unicode</CharacterSet>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration">
     <ConfigurationType>DynamicLibrary</ConfigurationType>
     <UseDebugLibraries>false</UseDebugLibraries>
-    <PlatformToolset>v143</PlatformToolset>
+    <PlatformToolset>v145</PlatformToolset>
     <WholeProgramOptimization>true</WholeProgramOptimization>
     <CharacterSet>Unicode</CharacterSet>
   </PropertyGroup>
@@ -53,7 +53,7 @@
       <PrecompiledHeaderFile>
       </PrecompiledHeaderFile>
       <LanguageStandard>stdcpp20</LanguageStandard>
-      <AdditionalIncludeDirectories>$(SolutionDir);$(ProjectDir)ffmpeg-7.1\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(SolutionDir);$(ProjectDir)ffmpeg-8.1.2\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <RuntimeLibrary>MultiThreadedDebug</RuntimeLibrary>
     </ClCompile>
     <Link>
@@ -61,7 +61,7 @@
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <EnableUAC>false</EnableUAC>
       <ModuleDefinitionFile>ffmpeg.def</ModuleDefinitionFile>
-      <AdditionalDependencies>$(ProjectDir)ffmpeg-7.1\lib\x86\avcodec.lib;$(ProjectDir)ffmpeg-7.1\lib\x86\avdevice.lib;$(ProjectDir)ffmpeg-7.1\lib\x86\avfilter.lib;$(ProjectDir)ffmpeg-7.1\lib\x86\avformat.lib;$(ProjectDir)ffmpeg-7.1\lib\x86\avutil.lib;$(ProjectDir)ffmpeg-7.1\lib\x86\swresample.lib;$(ProjectDir)ffmpeg-7.1\lib\x86\swscale.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>$(ProjectDir)ffmpeg-8.1.2\lib\x86\avcodec.lib;$(ProjectDir)ffmpeg-8.1.2\lib\x86\avdevice.lib;$(ProjectDir)ffmpeg-8.1.2\lib\x86\avfilter.lib;$(ProjectDir)ffmpeg-8.1.2\lib\x86\avformat.lib;$(ProjectDir)ffmpeg-8.1.2\lib\x86\avutil.lib;$(ProjectDir)ffmpeg-8.1.2\lib\x86\swresample.lib;$(ProjectDir)ffmpeg-8.1.2\lib\x86\swscale.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
@@ -76,7 +76,7 @@
       <PrecompiledHeaderFile>
       </PrecompiledHeaderFile>
       <LanguageStandard>stdcpp20</LanguageStandard>
-      <AdditionalIncludeDirectories>$(SolutionDir);$(ProjectDir)ffmpeg-7.1\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(SolutionDir);$(ProjectDir)ffmpeg-8.1.2\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <WholeProgramOptimization>false</WholeProgramOptimization>
       <RuntimeLibrary>MultiThreaded</RuntimeLibrary>
     </ClCompile>
@@ -87,7 +87,7 @@
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <EnableUAC>false</EnableUAC>
       <ModuleDefinitionFile>ffmpeg.def</ModuleDefinitionFile>
-      <AdditionalDependencies>$(ProjectDir)ffmpeg-7.1\lib\x86\avcodec.lib;$(ProjectDir)ffmpeg-7.1\lib\x86\avdevice.lib;$(ProjectDir)ffmpeg-7.1\lib\x86\avfilter.lib;$(ProjectDir)ffmpeg-7.1\lib\x86\avformat.lib;$(ProjectDir)ffmpeg-7.1\lib\x86\avutil.lib;$(ProjectDir)ffmpeg-7.1\lib\x86\swresample.lib;$(ProjectDir)ffmpeg-7.1\lib\x86\swscale.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>$(ProjectDir)ffmpeg-8.1.2\lib\x86\avcodec.lib;$(ProjectDir)ffmpeg-8.1.2\lib\x86\avdevice.lib;$(ProjectDir)ffmpeg-8.1.2\lib\x86\avfilter.lib;$(ProjectDir)ffmpeg-8.1.2\lib\x86\avformat.lib;$(ProjectDir)ffmpeg-8.1.2\lib\x86\avutil.lib;$(ProjectDir)ffmpeg-8.1.2\lib\x86\swresample.lib;$(ProjectDir)ffmpeg-8.1.2\lib\x86\swscale.lib;%(AdditionalDependencies)</AdditionalDependencies>
       <LinkTimeCodeGeneration />
     </Link>
   </ItemDefinitionGroup>
@@ -95,6 +95,9 @@
     <ClCompile Include="..\utils.cpp" />
     <ClCompile Include="dllmain.cpp" />
     <ClCompile Include="FFmpegDecoder.cpp" />
+    <ClCompile Include="FFmpegEncoder.cpp" />
+    <ClCompile Include="FFmpegEncoderAAC.cpp" />
+    <ClCompile Include="FFmpegEncoderALAC.cpp" />
     <ClCompile Include="FFmpegFileFilter.cpp" />
   </ItemGroup>
   <ItemGroup>
@@ -103,6 +106,9 @@
   <ItemGroup>
     <ClInclude Include="..\utils.h" />
     <ClInclude Include="FFmpegDecoder.h" />
+    <ClInclude Include="FFmpegEncoder.h" />
+    <ClInclude Include="FFmpegEncoderAAC.h" />
+    <ClInclude Include="FFmpegEncoderALAC.h" />
     <ClInclude Include="FFmpegFileFilter.h" />
     <ClInclude Include="resource.h" />
   </ItemGroup>

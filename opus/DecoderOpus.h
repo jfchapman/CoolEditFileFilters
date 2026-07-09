@@ -5,7 +5,6 @@
 #include <string>
 #include <optional>
 #include <map>
-#include <stdexcept>
 
 constexpr uint32_t kOpusChunkSize = 65536u;
 

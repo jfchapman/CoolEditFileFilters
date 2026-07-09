@@ -1,0 +1,17 @@
+LIBRARY ffmpeg_alac
+
+EXPORTS
+	QueryCoolFilter
+	FilterUnderstandsFormat
+	OpenFilterInput
+	FilterGetFileSize
+	ReadFilterInput
+	CloseFilterInput
+	GetSuggestedSampleType
+	OpenFilterOutput
+	WriteFilterOutput
+	CloseFilterOutput
+	FilterOptionsString
+	FilterGetFirstSpecialData
+	FilterGetNextSpecialData
+	FilterWriteSpecialData

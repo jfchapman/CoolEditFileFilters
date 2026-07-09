@@ -3,9 +3,9 @@
 #include "EncoderOpus.h"
 #include "utils.h"
 #include "resource.h"
-#include "CommCtrl.h"
 
 #include <algorithm>
+#include <stdexcept>
 
 constexpr char kBitrateSetting[] = "opusBitrate";
 
@@ -201,8 +201,8 @@ INT_PTR CALLBACK DialogProc( HWND hwnd, UINT message, WPARAM wParam, LPARAM lPar
     case WM_COMMAND : {
 			switch ( LOWORD( wParam ) ) { 
 				case IDOK : {
-          uint32_t result = 0;
           try {
+						uint32_t result = 0;
             std::vector<wchar_t> buffer( 16 );
             if ( GetDlgItemText( hwnd, IDC_BITRATE, buffer.data(), buffer.size() ) )
               result = std::clamp( static_cast<uint32_t>( std::stoul( buffer.data() ) ), kOpusMinimumBitrate, kOpusMaximumBitrate );

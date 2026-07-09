@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio Version 17
-VisualStudioVersion = 17.11.35312.102
+# Visual Studio Version 18
+VisualStudioVersion = 18.7.11903.348
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "flac", "flac\flac.vcxproj", "{5C570DAD-EB8C-4300-A0D7-2F0EE17721FB}"
 EndProject
@@ -10,6 +10,10 @@ EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "ffmpeg", "ffmpeg\ffmpeg.vcxproj", "{B59B325A-6969-4D06-8864-1C4642962B1F}"
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "openmpt", "openmpt\openmpt.vcxproj", "{DBF805AC-F226-40FA-A93E-E415B39F02CD}"
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "ffmpeg_alac", "ffmpeg_alac\ffmpeg_alac.vcxproj", "{382C9880-E584-48D3-8A16-6980743C7FE6}"
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "ffmpeg_aac", "ffmpeg_aac\ffmpeg_aac.vcxproj", "{415A856F-10D4-4DB2-833F-188AE7CB541C}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -32,6 +36,14 @@ Global
 		{DBF805AC-F226-40FA-A93E-E415B39F02CD}.Debug|x86.ActiveCfg = Debug|Win32
 		{DBF805AC-F226-40FA-A93E-E415B39F02CD}.Release|x86.ActiveCfg = Release|Win32
 		{DBF805AC-F226-40FA-A93E-E415B39F02CD}.Release|x86.Build.0 = Release|Win32
+		{382C9880-E584-48D3-8A16-6980743C7FE6}.Debug|x86.ActiveCfg = Debug|Win32
+		{382C9880-E584-48D3-8A16-6980743C7FE6}.Debug|x86.Build.0 = Debug|Win32
+		{382C9880-E584-48D3-8A16-6980743C7FE6}.Release|x86.ActiveCfg = Release|Win32
+		{382C9880-E584-48D3-8A16-6980743C7FE6}.Release|x86.Build.0 = Release|Win32
+		{415A856F-10D4-4DB2-833F-188AE7CB541C}.Debug|x86.ActiveCfg = Debug|Win32
+		{415A856F-10D4-4DB2-833F-188AE7CB541C}.Debug|x86.Build.0 = Debug|Win32
+		{415A856F-10D4-4DB2-833F-188AE7CB541C}.Release|x86.ActiveCfg = Release|Win32
+		{415A856F-10D4-4DB2-833F-188AE7CB541C}.Release|x86.Build.0 = Release|Win32
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

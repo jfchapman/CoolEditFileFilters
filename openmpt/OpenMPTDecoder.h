@@ -5,7 +5,6 @@
 #include <string>
 #include <optional>
 #include <map>
-#include <set>
 #include <algorithm>
 
 #include "libopenmpt.hpp"

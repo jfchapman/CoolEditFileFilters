@@ -9,6 +9,8 @@ The following file filters are included:
 - flac.flt - Free Lossless Audio Codec (read/write)
 - opus.flt - Opus Audio Codec (read/write)
 - ffmpeg.flt - FFmpeg (read only)
+- ffmpeg_aac.flt - Advanced Audio Coding via FFmpeg (read/write)
+- ffmpeg_alac.flt - Apple Lossless via FFmpeg (read/write)
 - openmpt.flt - Tracker formats (MOD, XM, IT, etc.) via libopenmpt (read only)
 
 The FFmpeg filter should read just about any audio/video file format.
@@ -17,27 +19,27 @@ For video files, the default audio track will be read.
 
 Credits
 -------
-FLAC is copyright (c) 2000-2009 Josh Coalson, 2011-2023 Xiph.Org
+FLAC is copyright (c) 2000-2009 Josh Coalson, 2011-2026 Xiph.Org
 http://xiph.org/flac/
 
-Opus is copyright (c) 2011-2024 Xiph.Org
+Opus is copyright (c) 2011-2026 Xiph.Org
 https://opus-codec.org/
 
 This software uses libraries from the FFmpeg project under the LGPLv2.1
 https://ffmpeg.org/
 
 This software uses the libopenmpt library under the BSD-3-Clause License
-Copyright (c) 2004-2024, OpenMPT Project Developers and Contributors
+Copyright (c) 2004-2026, OpenMPT Project Developers and Contributors
 Copyright (c) 1997-2003, Olivier Lapicque
 https://lib.openmpt.org/libopenmpt/
 
-JSON for Modern C++ is copyright (c) 2013-2024 Niels Lohmann
+JSON for Modern C++ is copyright (c) 2013-2026 Niels Lohmann
 https://github.com/nlohmann/json
 
 
 License
 -------
-Copyright (c) 2024 James Chapman
+Copyright (c) 2026 James Chapman
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal

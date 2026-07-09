@@ -3,7 +3,6 @@
 #include "FLAC++/all.h"
 
 #include <memory>
-#include <optional>
 #include <map>
 #include <string>
 #include <vector>
@@ -11,7 +10,6 @@
 constexpr uint32_t kDefaultCompressionLevel = 5;
 constexpr uint32_t kMaximumCompressionLevel = 8;
 
-// FLAC encoder
 class FlacEncoder : public FLAC::Encoder::File
 {
 public:

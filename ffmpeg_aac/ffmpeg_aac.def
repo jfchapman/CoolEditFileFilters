@@ -1,0 +1,19 @@
+LIBRARY ffmpeg_aac
+
+EXPORTS
+	QueryCoolFilter
+	FilterUnderstandsFormat
+	OpenFilterInput
+	FilterGetFileSize
+	ReadFilterInput
+	CloseFilterInput
+	GetSuggestedSampleType
+	OpenFilterOutput
+	WriteFilterOutput
+	CloseFilterOutput
+	FilterGetOptions
+	FilterOptions
+	FilterOptionsString
+	FilterGetFirstSpecialData
+	FilterGetNextSpecialData
+	FilterWriteSpecialData

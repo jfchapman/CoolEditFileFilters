@@ -1,8 +1,6 @@
 #include "FFmpegDecoder.h"
-#include "utils.h"
 
 #include <algorithm>
-#include <array>
 
 extern "C"
 {
@@ -16,7 +14,7 @@ std::string FFmpegDecoder::GetVersion()
   return ( nullptr != av_version_info() ) ? std::string( "FFmpeg " ) + av_version_info() : std::string( "FFmpeg" );
 }
 
-FFmpegDecoder::FFmpegDecoder( const std::string& filename )
+FFmpegDecoder::FFmpegDecoder( const std::string& filename, const AVCodecID codecRestriction )
 {
 	m_FormatContext = avformat_alloc_context();
 	if ( nullptr != m_FormatContext ) {
@@ -25,73 +23,75 @@ FFmpegDecoder::FFmpegDecoder( const std::string& filename )
 				const AVCodec* codec = nullptr;
 				m_StreamIndex = av_find_best_stream( m_FormatContext, AVMediaType::AVMEDIA_TYPE_AUDIO, -1, -1, &codec, 0 );
 				if ( ( m_StreamIndex >= 0 ) && ( nullptr != codec ) ) {
-					if ( AVStream* stream = m_FormatContext->streams[ m_StreamIndex ]; nullptr != stream ) {
-						if ( AVCodecParameters* codecParams = stream->codecpar; nullptr != codecParams ) {
-							if ( codecParams->ch_layout.nb_channels > 0 ) {
-								m_Channels = std::min( 2u, static_cast<uint32_t>( codecParams->ch_layout.nb_channels ) );
-								m_SampleRate = static_cast<uint32_t>( codecParams->sample_rate );
+					if ( AV_CODEC_ID_NONE == codecRestriction || codecRestriction == codec->id ) {
+						if ( AVStream* stream = m_FormatContext->streams[ m_StreamIndex ]; nullptr != stream ) {
+							if ( AVCodecParameters* codecParams = stream->codecpar; nullptr != codecParams ) {
+								if ( codecParams->ch_layout.nb_channels > 0 ) {
+									m_Channels = std::min( 2u, static_cast<uint32_t>( codecParams->ch_layout.nb_channels ) );
+									m_SampleRate = static_cast<uint32_t>( codecParams->sample_rate );
 
-                if ( codecParams->bit_rate > 0 )
-									m_BitRate = static_cast<uint32_t>( std::lroundf( codecParams->bit_rate / 1000.0f ) );
+									if ( codecParams->bit_rate > 0 )
+										m_BitRate = static_cast<uint32_t>( std::lroundf( codecParams->bit_rate / 1000.0f ) );
 
-                const double duration = ( stream->duration > 0 ) ? ( stream->duration * av_q2d( stream->time_base ) ) : ( static_cast<double>( m_FormatContext->duration ) / AV_TIME_BASE );
-                m_TotalSamples = static_cast<uint64_t>( std::llround( duration * m_SampleRate ) );
+									const double duration = ( stream->duration > 0 ) ? ( stream->duration * av_q2d( stream->time_base ) ) : ( static_cast<double>( m_FormatContext->duration ) / AV_TIME_BASE );
+									m_TotalSamples = static_cast<uint64_t>( std::llround( duration * m_SampleRate ) );
 
-                const int bitsPerSample = std::max( codecParams->bits_per_coded_sample, codecParams->bits_per_raw_sample );
-                switch ( bitsPerSample ) {
-                  case 8:
-                  case 16:
-                  case 32:
-                    m_BitsPerSample = bitsPerSample;
-                    break;
-                  default:
-                    m_BitsPerSample = 32;
-                    break;
-                }
-                // Don't use 32-bit samples if this will take us over Cool Edit's 2Gb limit.
-                if ( ( 32 == m_BitsPerSample ) && ( m_TotalSamples * m_Channels * 32 / 8 ) > std::numeric_limits<int>().max() )
-                  m_BitsPerSample = 16;
+									const int bitsPerSample = std::max( codecParams->bits_per_coded_sample, codecParams->bits_per_raw_sample );
+									switch ( bitsPerSample ) {
+										case 8:
+										case 16:
+										case 32:
+											m_BitsPerSample = bitsPerSample;
+											break;
+										default:
+											m_BitsPerSample = 32;
+											break;
+									}
+									// Don't use 32-bit samples if this will take us over Cool Edit's 2Gb limit.
+									if ( ( 32 == m_BitsPerSample ) && ( m_TotalSamples * m_Channels * 32 / 8 ) > std::numeric_limits<int>().max() )
+										m_BitsPerSample = 16;
 
-                if ( nullptr != codec->long_name )
-                  m_Description = std::string( codec->long_name ) + "\n";
-                else
-                  m_Description = GetVersion() + "\n";
-                if ( m_BitRate > 0 )
-                  m_Description += std::to_string( m_BitRate ) + " kbps, ";
-                m_Description += std::to_string( codecParams->ch_layout.nb_channels ) + std::string( ( 1 == codecParams->ch_layout.nb_channels ) ? " channel" : " channels" );
+									if ( nullptr != codec->long_name )
+										m_Description = std::string( codec->long_name ) + "\n";
+									else
+										m_Description = GetVersion() + "\n";
+									if ( m_BitRate > 0 )
+										m_Description += std::to_string( m_BitRate ) + " kbps, ";
+									m_Description += std::to_string( codecParams->ch_layout.nb_channels ) + std::string( ( 1 == codecParams->ch_layout.nb_channels ) ? " channel" : " channels" );
 
-								m_DecoderContext = avcodec_alloc_context3( codec );
-								if ( nullptr != m_DecoderContext ) {
-									int result = avcodec_parameters_to_context( m_DecoderContext, codecParams );
-									if ( result >= 0 )
-										result = avcodec_open2( m_DecoderContext, codec, nullptr );
-									if ( result >= 0 ) {
-										m_Packet = av_packet_alloc();
-										m_Frame = av_frame_alloc();
+									m_DecoderContext = avcodec_alloc_context3( codec );
+									if ( nullptr != m_DecoderContext ) {
+										int result = avcodec_parameters_to_context( m_DecoderContext, codecParams );
+										if ( result >= 0 )
+											result = avcodec_open2( m_DecoderContext, codec, nullptr );
+										if ( result >= 0 ) {
+											m_Packet = av_packet_alloc();
+											m_Frame = av_frame_alloc();
 
-                    const auto srcLayout = m_DecoderContext->ch_layout;
-                    const auto srcFormat = m_DecoderContext->sample_fmt;
-                    AVChannelLayout dstLayout = {};
-                    av_channel_layout_default( &dstLayout, static_cast<int>( m_Channels ) );
-                    AVSampleFormat dstFormat = AV_SAMPLE_FMT_NONE;
-                    switch ( m_BitsPerSample ) {
-                      case 8:
-                        dstFormat = AV_SAMPLE_FMT_U8;
-                        break;
-                      case 16:
-                        dstFormat = AV_SAMPLE_FMT_S16;
-                        break;
-                      case 32:
-                        dstFormat = AV_SAMPLE_FMT_FLT;
-                        break;
-                    }
-                    result = swr_alloc_set_opts2( &m_ResampleContext, &dstLayout, dstFormat, codecParams->sample_rate, &srcLayout, srcFormat, codecParams->sample_rate, 0, nullptr );
-                    if ( result >= 0 ) {
-                      if ( swr_init( m_ResampleContext ) < 0 ) {
-                        swr_free( &m_ResampleContext );
-                        m_ResampleContext = nullptr;
-                      }
-                    }
+											const auto srcLayout = m_DecoderContext->ch_layout;
+											const auto srcFormat = m_DecoderContext->sample_fmt;
+											AVChannelLayout dstLayout = {};
+											av_channel_layout_default( &dstLayout, static_cast<int>( m_Channels ) );
+											AVSampleFormat dstFormat = AV_SAMPLE_FMT_NONE;
+											switch ( m_BitsPerSample ) {
+												case 8:
+													dstFormat = AV_SAMPLE_FMT_U8;
+													break;
+												case 16:
+													dstFormat = AV_SAMPLE_FMT_S16;
+													break;
+												case 32:
+													dstFormat = AV_SAMPLE_FMT_FLT;
+													break;
+											}
+											result = swr_alloc_set_opts2( &m_ResampleContext, &dstLayout, dstFormat, codecParams->sample_rate, &srcLayout, srcFormat, codecParams->sample_rate, 0, nullptr );
+											if ( result >= 0 ) {
+												if ( swr_init( m_ResampleContext ) < 0 ) {
+													swr_free( &m_ResampleContext );
+													m_ResampleContext = nullptr;
+												}
+											}
+										}
 									}
 								}
 							}

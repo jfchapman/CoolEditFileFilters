@@ -2,6 +2,7 @@
 
 #include <algorithm>
 #include <limits>
+#include <stdexcept>
 
 DecoderOpus::DecoderOpus( const std::string& filename )
 {
